@@ -34,7 +34,7 @@ To get started with the AWS Lex Chatbot, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/aws-lex-chatbot.git
+   git clone https://github.com/Mutai-Gilbert/aws-lex-chatbot.git
    cd aws-lex-chatbot
    ```
 
