@@ -20,6 +20,7 @@ export default function ChatBot() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [images, setImages] = useState<string[]>([])
   const scrollAreaRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null) // Added inputRef
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -40,9 +41,11 @@ export default function ChatBot() {
   }
 
   const onEmojiClick = (emojiData: EmojiClickData) => {
-    const cursor = (document.querySelector('input[type="text"]') as HTMLInputElement).selectionStart || 0
-    const newInput = input.slice(0, cursor) + emojiData.emoji + input.slice(cursor)
-    handleInputChange({ target: { value: newInput } } as React.ChangeEvent<HTMLInputElement>)
+    if (inputRef.current) { // Updated onEmojiClick
+      const cursor = inputRef.current.selectionStart || 0
+      const newInput = input.slice(0, cursor) + emojiData.emoji + input.slice(cursor)
+      handleInputChange({ target: { value: newInput } } as React.ChangeEvent<HTMLInputElement>)
+    }
     setShowEmojiPicker(false)
   }
 
@@ -64,7 +67,7 @@ export default function ChatBot() {
   return (
     <div 
       className="min-h-screen bg-cover bg-center flex items-center justify-center"
-      style={{ backgroundImage: 'url("/chatbot.png")' }}
+      style={{ backgroundImage: 'url("/placeholder.svg?height=1080&width=1920")' }}
     >
       <div className="max-w-4xl w-full bg-white bg-opacity-80 p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold mb-6 text-center">Welcome to Our Website</h1>
@@ -131,6 +134,7 @@ export default function ChatBot() {
           <div className="p-4 border-t relative">
             <form onSubmit={onSubmit} className="flex items-center gap-2">
               <Input
+                ref={inputRef} // Updated Input component
                 value={input}
                 onChange={handleInputChange}
                 placeholder="Type a message..."
@@ -200,4 +204,3 @@ export default function ChatBot() {
     </div>
   )
 }
-
